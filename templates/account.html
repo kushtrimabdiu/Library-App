@@ -1,0 +1,149 @@
+<div id="bibloteka_wrapper" layout="row" layout-align="center center" flex="100">
+    <md-whiteframe id="loggin_div" flex="90" flex-sm="100">
+        <md-toolbar id="k_login_div_header_toolbar" layout="row" layout-align="space-between center">
+            <md-button id="btn_back" title="Go Back" aria-label="go_back" class="md-icon-button launch" ng-click="goBack()">
+                <ng-md-icon icon="keyboard_backspace" style="fill:gray" size="32"></ng-md-icon>
+            </md-button>
+            <span class="md-subhead title">{{lexuesi.name}} {{lexuesi.surname}}</span>
+            <md-button id="btn_back"
+                 title="Other Options"
+                 aria-label="go_back"
+                 class="md-icon-button launch" >
+                <ng-md-icon icon="more_vert" style="fill:gray" size="32"></ng-md-icon>
+            </md-button>
+        </md-toolbar>
+        <md-content layout="row" layout-wrap>
+            <md-tabs md-dynamic-height md-border-bottom flex="100">
+              <md-tab label="INFORMATA PERSONALE">
+                <md-content class="md-padding" layout="row"  layout-align="">
+                  <div id="more_detail" flex="70" flex-sm="100">
+                      <div layout="column" flex="60" flex-sm="100">
+                        <form name="form_register" id="form_register">
+                            <md-input-container class="register_input">
+                                <label>Emri</label>
+                                <input name="name" ng-model="lexuesi.name" required>
+                                <div ng-messages="">
+                                  <div ng-show="form_register.first.$dirty && form_register.first.$error.required">
+                                    <div ng-message="required">Emri duhet te mbushet patjeter.</div>
+                                  </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="register_input">
+                                <label>Mbiemri</label>
+                                <input name="name" ng-model="lexuesi.surname" required>
+                                <div ng-messages="">
+                                  <div ng-show="form_register.second.$dirty && form_register.first.$error.required">
+                                    <div ng-message="required">Mbiemri duhet te mbushet patjeter.</div>
+                                  </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="register_input">
+                                <label>Emaili</label>
+                                <input name="email" ng-model="lexuesi.email" type="email" required>
+                                <div ng-messages="">
+                                    <div ng-show="form_register.email.$dirty && form_register.email.$error.required">
+                                      <div ng-message="required">Emaili duhet te mbushet patjeter.</div>
+                                    </div>
+                                    <div ng-show="form_register.email.$dirty && form_register.email.$error.email">
+                                      <div ng-message="email">S'eshte format i sakte.</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="register_input">
+                                <label>Numri Telefonit</label>
+                                <input name="tel_no" ng-model="lexuesi.tel_no" type="text">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Profesjoni</label>
+                                <md-select ng-model="lexuesi.occupation">
+                                  <md-option ng-repeat="proffession in proffessions" value="{{proffession}}">
+                                    {{proffession}}
+                                  </md-option>
+                                </md-select>
+                            </md-input-container>
+                            <div layout="column">
+                                <md-button ng-disabled="form_register.$invalid" id="btn_register" class="md-raised md-accent md-checked" ng-click="updateAccount()">Azhurno te dhenat</md-button>
+                                <center><span ng-show="form_register.$invalid" class="md-body-1">Mbushni te gjitha fushat!</span></center>
+                                <center><span ng-show="showError" class="md-body-1">{{error_message}}</span></center>
+                            </div><br /><br />
+                        </form>
+                    </div>
+                  </div>
+                    <div layout="column" flex="40" >
+                        <div><center><span class="md-headline title">NDRYSHO FJALKALIMIN</span></center></div>
+                        <form name="form_password" id="form_password">
+                        <md-input-container class="register_input">
+                            <label>Fjalkalimi Ri</label>
+                            <input name="password" ng-model="new_password" type="text" ng-minlength="5" required>
+                        </md-input-container>
+                        <md-input-container class="register_input">
+                            <label>Perserit Fjalkalimin Ri</label>
+                            <input name="password" ng-model="new_password_repeat" type="text" ng-minlength="5" required>
+                        </md-input-container>
+                        <div>
+                            <md-button ng-disabled="form_password.$invalid || new_password!=new_password_repeat"
+                        id="btn_register" class="md-raised md-accent" flex="100" ng-click="updatePassword()">Azhurno fjalkalimin</md-button>
+                        </div>
+                            <span class="md-subhead title">* Fjalkalimi duhet te jete se paku 5 karaktere!</span>
+                        </form>
+                    </div>
+                </md-content>
+              </md-tab>
+              <md-tab label="LIBRAT E LEXUAR">
+                <div ng-show="total_books_read>0">
+                <md-content class="md-padding" layout="row">
+                      <div layout="column" flex="60" flex-sm="100">
+                        <div id="books_read" class="row">
+                            <div id="books_div" class="col-md-12 col-sm-12 col-lg-12">
+                                <md-card ng-repeat="book in allMyBooks | filter:search"
+                                         class="grid col-md-10 col-sm-12 col-lg-10 card_view">
+                                     <md-card-content>
+                                       <div ng-show="book.cover==null">
+                                           <center><img src="img/covers/no_cover.jpg" width='250' height='260' /></center>
+                                       </div>
+                                       <div ng-show="book.cover!=null">
+                                           <center><img src="img/covers/{{book.cover}}" width='250' height='260' /></center>
+                                       </div>
+                                       <div layout-wrap><h2 class="title md-headline">{{book.name | uppercase}}</h2></div>
+                                       <p>{{book.author}}</p>
+                                        <p ng-show="!book.return_date">NUK E KENI KTHYER</p>
+                                        <p ng-show="book.return_date">KTHEYER ME DATE : {{book.return_date}}</p>
+                                     </md-card-content>
+                                </md-card>
+                            </div>
+                        </div>
+                      </div>
+                      <div layout="column">
+                      <div layout="column" flex="40" flex-sm="100">
+                          <center><div id="books_icon">
+                              <ng-md-icon id="cake_btn" icon="my_library_books" style="fill:gray" size="92"></ng-md-icon>
+                          </div></center>
+                          <div id="id="books_read_nr"">
+                              <center><span class="title md-display-1">{{total_books_read}} LIBRA TE LEXUARA</span></center>
+                          </div>
+                      </div>
+                      <div layout="column" flex="40" flex-sm="100">
+                        <center><div id="books_icon">
+                          <ng-md-icon id="cake_btn" icon="insert_drive_file" style="fill:gray" size="92"></ng-md-icon>
+                        </div></center>
+                        <div id="id="books_read_nr"">
+                          <center><span class="title md-display-1">{{total_page_read}} FAQE TE LEXUARA</span></center>
+                        </div>
+                      </div>
+                      </div>
+                </md-content>
+                </div>
+                <div id="no_books_read_div" layout="column" flex="100" ng-show="total_books_read==0">
+                    <center><span class="title md-display-3">NUK KENI LEXUAR ASNJE LIBER</span></center>
+                </div>
+              </md-tab>
+              <md-tab label="STATISTIKA">
+                <md-content class="md-padding">
+                  <center><span class="md-display-2 title">DO TE IMPLEMENTOHET NE TE ARDHMEN</span></center>
+
+                </md-content>
+              </md-tab>
+            </md-tabs>
+        </md-content>
+    </md-whiteframe>
+</div>

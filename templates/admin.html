@@ -1,0 +1,333 @@
+<div id="bibloteka_wrapper" layout="row" layout-align="center center" flex="100">
+    <md-whiteframe id="loggin_div" flex="50" flex-sm="90" ng-show="!logged_in">
+        <md-toolbar id="k_login_div_header_toolbar" layout="row" layout-align="space-between center">
+            <md-button id="btn_back" title="Go Back" aria-label="go_back" class="md-icon-button launch" ng-click="goBack()">
+                <ng-md-icon icon="keyboard_backspace" style="fill:gray" size="32"></ng-md-icon>
+            </md-button>
+            <span class="md-subhead title">LOGOHU SI ADMINISTRATOR</span>
+            <md-button id="btn_back"
+                 title="Other Options"
+                 aria-label="go_back"
+                 class="md-icon-button launch" >
+                <ng-md-icon icon="more_vert" style="fill:gray" size="32"></ng-md-icon>
+            </md-button>
+        </md-toolbar>
+        <md-content layout="column">
+            <div layout="row">
+                <md-input-container flex="70" flex-offset="15">
+                  <label>Username</label>
+                  <input type="text" ng-model="username">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex="70" flex-offset="15">
+                  <label>Fjalkalimi</label>
+                  <input type="password" ng-model="password">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <div layout="column" flex="50" flex-offset="25">
+                    <md-button class="md-raised md-primary" ng-click="logMeInAsAdmin()">LOGOHU</md-button>
+                </div>
+            </div>
+            <div layout="row">
+                <div layout="column" flex="50" flex-offset="30">
+                    <span class="md-subhead" ng-show="wrong_password">Username ose fjalkalimi, gabim!</span>
+                </div>
+            </div>
+        </md-content>
+    </md-whiteframe>
+    <!--WHEN LOGGED IN WE SHOULD SEE THE USER PAGE -->
+    <md-whiteframe id="loggin_div" flex="90" flex-sm="100" ng-show="logged_in">
+        <md-toolbar id="k_login_div_header_toolbar" layout="row" layout-align="space-between center">
+            <div><span class="md-body-1 title" layout-padding="10">MIRESEVINI, {{admin.name |uppercase}}</span></div>
+            <flex></flex>
+            <div>
+                <md-button id="btn_back" title="Logout" aria-label="Logout" class="md-icon-button launch" ng-click="logMeOut()">
+                    <ng-md-icon icon="logout" style="fill:gray" size="32"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-content layout="row" layout-wrap flex="100">
+            <md-tabs id="admin_tabs" md-border-bottom flex="100">
+              <md-tab label="HUAZO">
+                <md-content class="md-padding" layout="column" layout-padding>
+
+                        <div id="search" layout="row" layout-align="space-around center">
+                            <div id="total">
+                                <span class="md-body-2 transparent_class">TOTAL {{total_books}} LIBRA</span>
+                            </div>
+                            <div id="searchbox">
+                                <md-input-container>
+                                  <label>KERKO TITULL OSE AUTORE</label>
+                                  <input type="text" ng-model="search">
+                                </md-input-container>
+                            </div>
+                          </div>
+                        <div class="row">
+                            <div id="books_div" class="col-md-offset-1 col-lg-offset-1">
+                                <md-card ng-repeat="book in books | filter:search"
+                                         class="grid col-md-5 col-sm-12 col-lg-5 card_view">
+                                     <md-card-content>
+                                       <div ng-show="book.cover==null">
+                                           <center><img src="img/covers/no_cover.jpg" width='250' height='260' /></center>
+                                       </div>
+                                       <div ng-show="book.cover!=null">
+                                           <center><img src="img/covers/{{book.cover}}" width='250' height='260' /></center>
+                                       </div>
+                                       <div layout-wrap><h2 class="title md-headline">{{book.name | uppercase}}</h2></div>
+                                       <p>{{book.author}}</p>
+                                        <p class="green" ng-show="book.available==1">E LIRE</p>
+                                        <p class="red" ng-show="book.available==0">E HUAZUAR NGA {{book.user_name |uppercase}} {{book.user_surname |uppercase}}</p>
+                                     </md-card-content>
+                                     <md-card-actions layout="row" layout-align="start center">
+                                       <md-button class="md-raised md-primary md-hue-1" flex="100" ng-click="reserveBookForUser(book.id)" ng-disabled="book.available==0">HUAZO LIBRIN</md-button>
+                                     </md-card-actions>
+                                </md-card>
+                                <br /><br /><br /><br />
+                            </div>
+                        </div>
+
+                </md-content>
+              </md-tab>
+              <md-tab label="LIBRAT E HUAZUAR">
+                <md-content class="md-padding" layout="column" layout-padding>
+                    <div id="search" layout="row" layout-align="space-around center">
+                        <div id="searchbox">
+                            <md-input-container>
+                              <label>KERKO TITULL OSE AUTORE</label>
+                              <input type="text" ng-model="search">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div id="books_div" class="col-md-offset-1 col-lg-offset-1">
+                        <md-card ng-repeat="book in books | filter:search"
+                                 class="grid col-md-5 col-sm-12 col-lg-5 card_view" ng-show="book.available==0 && book.picked_up==1">
+                             <md-card-content>
+                               <div ng-show="book.cover==null">
+                                   <center><img src="img/covers/no_cover.jpg" width='250' height='260' /></center>
+                               </div>
+                               <div ng-show="book.cover!=null">
+                                   <center><img src="img/covers/{{book.cover}}" width='250' height='260' /></center>
+                               </div>
+                               <div layout-wrap><h2 class="title md-headline">{{book.name | uppercase}}</h2></div>
+                               <p>{{book.author}}</p>
+                               <p class="red" ng-show="book.available==0">E HUAZUAR NGA {{book.user_name |uppercase}} {{book.user_surname |uppercase}}</p>
+                               <p class="green" ng-show="book.available==0">E REZERVUAR ME DATE: {{book.loan_date}}</p>
+                             </md-card-content>
+                             <md-card-actions layout="row" layout-align="start center">
+                               <md-button class="md-raised md-primary md-hue-1" flex="100" ng-click="returnBook(book.loan_id,book.id)">KTHE LIBRIN</md-button>
+                             </md-card-actions>
+                        </md-card>
+                    </div>
+                </md-content>
+              </md-tab>
+              <md-tab label="LIBRAT E REZERVUAR">
+                <md-content class="md-padding" layout="column" layout-padding>
+                    <div id="search" layout="row" layout-align="space-around center">
+                        <div id="searchbox">
+                            <md-input-container>
+                              <label>KERKO TITULL OSE AUTORE</label>
+                              <input type="text" ng-model="search">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div id="books_div" class="col-md-offset-1 col-lg-offset-1">
+                        <md-card ng-repeat="book in books | filter:search"
+                                 class="grid col-md-5 col-sm-12 col-lg-5 card_view" ng-show="book.available==0 && book.picked_up==0">
+                             <md-card-content>
+                               <div ng-show="book.cover==null">
+                                   <center><img src="img/covers/no_cover.jpg" width='250' height='260' /></center>
+                               </div>
+                               <div ng-show="book.cover!=null">
+                                   <center><img src="img/covers/{{book.cover}}" width='250' height='260' /></center>
+                               </div>
+                               <div layout-wrap><h2 class="title md-headline">{{book.name | uppercase}}</h2></div>
+                               <p>{{book.author}}</p>
+                               <p class="red" ng-show="book.available==0">E REZERVUAR NGA {{book.user_name |uppercase}} {{book.user_surname |uppercase}}</p>
+                             </md-card-content>
+                             <md-card-actions layout="row" layout-align="start center">
+                               <md-button class="md-raised md-primary md-hue-1" flex="100" ng-click="bookPickedUp(book.loan_id)">HUAZO LIBRIN</md-button>
+                             </md-card-actions>
+                        </md-card>
+                    </div>
+                </md-content>
+              </md-tab>
+              <!-- SHTO LIBRA ------->
+              <md-tab label="SHTO LIBER">
+                <md-content class="md-padding" layout="row" layout-algin="center center" flex-offset="10">
+                    <div layout="column" flex="60">
+                        <center><span class="md-headline title">SHTO DETAJET E LIBRIT</span></center>
+                        <form name="form_register" id="form_register">
+                            <md-input-container class="register_input">
+                                <label>Emri i librit</label>
+                                <input name="name" ng-model="new_book.name" required>
+                                <div ng-messages="">
+                                  <div ng-show="form_register.name.$dirty && form_register.first.$error.required">
+                                    <div ng-message="required">Emri i librit duhet te mbushet patjeter.</div>
+                                  </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="register_input">
+                                <label>Emri i autorit</label>
+                                <input name="author" ng-model="new_book.author" required>
+                                <div ng-messages="">
+                                  <div ng-show="form_register.author.$dirty && form_register.first.$error.required">
+                                    <div ng-message="required">Emri i autorit duhet te mbushet patjeter.</div>
+                                  </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="register_input">
+                                <label>Numri ISBN</label>
+                                <input name="isbn" ng-model="new_book.isbn" required>
+                                <div ng-messages="">
+                                  <div ng-show="form_register.isbn.$dirty && form_register.first.$error.required">
+                                    <div ng-message="required">ISBN duhet te mbushet patjeter.</div>
+                                  </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="register_input">
+                                <label>Numri i faqeve</label>
+                                <input name="book_pages" ng-model="new_book.book_pages" required>
+                                <div ng-messages="">
+                                  <div ng-show="form_register.pages.$dirty && form_register.first.$error.required">
+                                    <div ng-message="required">Numri i faqeve duhet te mbushet patjeter.</div>
+                                  </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="register_input">
+                                <label>Emri i fotos se koverit te librit</label>
+                                <input name="cover" ng-model="new_book.cover">
+                            </md-input-container>
+                            <div id="btn_upload_book">
+                                <md-button flex="90" class="md-raised md-primary" ng-disabled="form_register.$invalid" ng-click="addNewBook()">SHTO LIBRIN E RI</md-button>
+                            </div>
+                        </form>
+                    </div>
+                </md-content>
+              </md-tab>
+              <md-tab label="ANETARET">
+                <md-content class="md-padding">
+                    <div layout="column" flex="100">
+                        <div id="search" layout="row" layout-align="space-around center">
+                            <div id="searchbox" flex="40">
+                                <md-input-container>
+                                  <label>KERKO ANETAR</label>
+                                  <input type="text" ng-model="search">
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="books_div" class="col-md-offset-1 col-lg-offset-1">
+                                <md-card ng-repeat="user in all_users | filter:search"
+                                         class="grid col-md-5 col-sm-12 col-lg-5 card_view user_card">
+                                     <md-card-content layout="column">
+                                       <div layout="row">
+                                           <ng-md-icon id="cake_btn" icon="account_box" style="fill:gray" size="24"></ng-md-icon>
+                                           <span class="md-subhead title">{{user.name}} {{user.surname}}</span>
+                                       </div>
+                                       <div layout="row">
+                                           <ng-md-icon id="cake_btn" icon="cake" style="fill:gray" size="24"></ng-md-icon>
+                                           <span class="md-subhead title">{{user.birthday}}</span>
+                                       </div>
+                                       <div layout="row">
+                                           <ng-md-icon id="cake_btn" icon="event" style="fill:gray" size="24"></ng-md-icon>
+                                           <span class="md-subhead title">{{user.registered_at}}</span>
+                                       </div>
+                                       <div layout="row">
+                                           <ng-md-icon id="cake_btn" icon="call" style="fill:gray" size="24"></ng-md-icon>
+                                           <span>{{user.tel_no}}</span>
+                                       </div>
+                                       <div layout="row">
+                                           <ng-md-icon id="cake_btn" ng-show="user.gjinija=='m'" icon="tag_faces" style="fill:gray" size="24"></ng-md-icon>
+                                           <span ng-show="user.gjinija=='m'">MASHKULL</span>
+                                           <ng-md-icon id="cake_btn" ng-show="user.gjinija=='f'" icon="face" style="fill:gray" size="24"></ng-md-icon>
+                                           <span ng-show="user.gjinija=='f'">FEMER</span>
+                                       </div>
+                                     </md-card-content>
+                                     <md-card-actions layout="row" layout-align="start center">
+                                       <md-button flex="100" class="md-raised md-primary" flex="50" ng-show="user.payed_subscription==0" ng-click="paySubscription(user.id)">PAGUAJ ANTARSIMIN</md-button>
+                                       <div ng-show="user.payed_subscription==1"><br /></div>
+                                       <div flex="100"><span style="margin-left:20px;" class="md-title title" ng-show="user.payed_subscription==1">ANTARSIMI I PAGUAR</span></div>
+                                     </md-card-actions>
+                                </md-card>
+                            </div>
+                        </div>
+                    </div>
+                </md-content>
+            </md-tab>
+              <!-- SHTO LIBRA END -------->
+              <md-tab label="STATISTIKA">
+                <md-content class="md-padding" layout="column" >
+                    <div id="user_statistics_div" layout="row" layout-sm="column">
+                        <div id="total_users_div" flex="33" flex-sm="100">
+                            <md-card class="card_view">
+                                <md-toolbar id="k_login_div_header_toolbar" layout="row" layout-align="center center">
+                                    <span class="md-subhead title">NR. TOTAL I ANETAREVE</span>
+                                </md-toolbar>
+                                 <md-card-content>
+                                     <center><span class="md-display-1">{{statistics.total_users}}</span></center>
+                                 </md-card-content>
+                            </md-card>
+                        </div>
+                        <div id="total_users_div" flex="33" flex-sm="100">
+                            <md-card class="card_view">
+                                <md-toolbar id="k_login_div_header_toolbar" layout="row" layout-align="center center">
+                                    <span class="md-subhead title">NR. TOTAL I ANETAREVE MESHKUJ</span>
+                                </md-toolbar>
+                                 <md-card-content>
+                                     <center><span class="md-display-1">{{statistics.total_male_users}}</span></center>
+                                 </md-card-content>
+                            </md-card>
+                        </div>
+                        <div id="total_users_div" flex="33" flex-sm="100">
+                            <md-card class="card_view">
+                                <md-toolbar id="k_login_div_header_toolbar" layout="row" layout-align="center center">
+                                    <span class="md-subhead title">NR. TOTAL I ANETAREVE FEMRA</span>
+                                </md-toolbar>
+                                 <md-card-content>
+                                     <center><span class="md-display-1">{{statistics.total_female_users}}</span></center>
+                                 </md-card-content>
+                            </md-card>
+                        </div>
+                    </div>
+                    <!-- BOOKS -->
+                    <div id="book_statistics_div" layout="row" layout-sm="column">
+                        <div id="total_books_div" flex="33" flex-sm="100">
+                            <md-card class="card_view">
+                                <md-toolbar id="k_login_div_header_toolbar" layout="row" layout-align="center center">
+                                    <span class="md-subhead title">NR. TOTAL I LIBRAVE</span>
+                                </md-toolbar>
+                                 <md-card-content>
+                                     <center><span class="md-display-1">{{statistics.total_books}}</span></center>
+                                 </md-card-content>
+                            </md-card>
+                        </div>
+                        <div id="total_books_div" flex="33" flex-sm="100">
+                            <md-card class="card_view">
+                                <md-toolbar id="k_login_div_header_toolbar" layout="row" layout-align="center center">
+                                    <span class="md-subhead title">NR. TOTAL I LIBRAVE TE HUAZUAR</span>
+                                </md-toolbar>
+                                 <md-card-content>
+                                     <center><span class="md-display-1">{{statistics.total_books_hired}}</span></center>
+                                 </md-card-content>
+                            </md-card>
+                        </div>
+                        <div id="total_books_div" flex="33" flex-sm="100">
+                            <md-card class="card_view">
+                                <md-toolbar id="k_login_div_header_toolbar" layout="row" layout-align="center center">
+                                    <span class="md-subhead title">NR. TOTAL I LIBRAVE TE LEXUAR</span>
+                                </md-toolbar>
+                                 <md-card-content>
+                                     <center><span class="md-display-1">{{statistics.total_books_read}}</span></center>
+                                 </md-card-content>
+                            </md-card>
+                        </div>
+                    </div>
+                    <!-- END OF BOOKS -->
+                </md-content>
+              </md-tab>
+            </md-tabs>
+        </md-content>
+    </md-whiteframe>
+</div>

@@ -1,0 +1,89 @@
+<div id="bibloteka_wrapper" layout="row" layout-align="center center" flex="100">
+    <md-whiteframe id="loggin_div" flex="90" flex-sm="90">
+        <md-toolbar id="k_login_div_header_toolbar" layout="row" layout-align="center center">
+            <span>REGJISTROHU</span>
+        </md-toolbar>
+        <md-content id="register_div" layout="row" flex="100">
+            <div layout="column" flex="60" flex-offset="20">
+                <form name="form_register" id="form_register">
+                    <md-input-container class="register_input">
+                        <label>Emri</label>
+                        <input name="name" ng-model="lexues.name" required>
+                        <div ng-messages="">
+                          <div ng-show="form_register.name.$dirty && form_register.name.$error.required">
+                            <div ng-message="required">Emri duhet te mbushet patjeter.</div>
+                          </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="register_input">
+                        <label>Mbiemri</label>
+                        <input name="surname" ng-model="lexues.surname" required>
+                        <div ng-messages="">
+                          <div ng-show="form_register.surname.$dirty && form_register.first.$error.required">
+                            <div ng-message="required">Mbiemri duhet te mbushet patjeter.</div>
+                          </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="register_input">
+                        <label>Emaili</label>
+                        <input name="email" ng-model="lexues.email" type="email" required>
+                        <div ng-messages="">
+                            <div ng-show="form_register.email.$dirty && form_register.email.$error.required">
+                              <div ng-message="required">Emaili duhet te mbushet patjeter.</div>
+                            </div>
+                            <div ng-show="form_register.email.$dirty && form_register.email.$error.email">
+                              <div ng-message="email">S'eshte format i sakte.</div>
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="register_input">
+                        <label>Numri i telefonit</label>
+                        <input name="tel_no" ng-model="lexues.tel_no" type="text" required>
+                    </md-input-container>
+                    <md-input-container class="register_input">
+                        <label>Username</label>
+                        <input name="name" ng-model="lexues.username" required>
+                        <div ng-messages="">
+                          <div ng-show="form_register.username.$dirty && form_register.username.$error.required">
+                            <div ng-message="required">Username duhet te mbushet patjeter.</div>
+                          </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="register_input">
+                        <label>Fjalkalimi</label>
+                        <input name="password" ng-model="lexues.password" type="password" ng-minlength="5" required>
+                        <div ng-messages="">
+                            <div ng-show="form_register.password.$dirty && form_register.password.$error.required">
+                              <div ng-message="required">Fjalkalimi duhet te mbushet patjeter.</div>
+                            </div>
+                            <div ng-show="form_register.password.$dirty && form_register.password.$error.minlength">
+                              <div ng-message="required">Fjalkalimi eshte shume i shkurter.</div>
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <div layout="row">
+                        <md-datepicker class="my_datepicker" name="dateField" ng-model="lexues.birthday" md-placeholder="Ditelindja "></md-datepicker>
+                        <span id="picker_explanation_text" class="md-body-1 title">Formati: Muaj/Dita/Vjeti - shembull 3/22/2000</span>
+                    </div>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Profesjoni</label>
+                        <md-select ng-model="lexues.occupation">
+                          <md-option ng-repeat="occupation in occupations" value="{{occupation}}">
+                            {{occupation}}
+                          </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-radio-group id="radiobutton_group" ng-model="lexues.gjinija" layout="row" required>
+                        <md-radio-button value="m" aria-checked="true" class="md-primary" selected>Mashkull</md-radio-button>
+                        <md-radio-button value="f" class="md-primary">Femer</md-radio-button>
+                    </md-radio-group>
+                    <div layout="column">
+                        <md-button ng-disabled="form_register.$invalid" id="btn_register" class="md-raised md-accent md-checked" ng-click="createNewAccount()">Regjistrohu</md-button>
+                        <center><span ng-show="form_register.$invalid" class="md-body-1">Mbushni te gjitha fushat!</span></center>
+                        <center><span ng-show="showError" class="md-body-1">{{error_message}}</span></center>
+                    </div><br /><br />
+                </form>
+            </div>
+        </md-content>
+    </md-whiteframe>
+</div>

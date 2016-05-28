@@ -1,0 +1,275 @@
+html
+{
+    background-color:#EEEEEE;
+}
+body
+{
+    background-color:#EEEEEE;
+}
+#background_div
+{
+    height: 250px;
+    width: 100%;
+    background-color: teal;
+}
+#landing_page
+{
+    margin-top: -180px;
+    background-color:#E2DBD5;
+    color: black;
+}
+#courosel
+{
+    min-height: 400px;
+    background-color:#E2DBD5;
+    border: 2px solid black;
+}
+#app_toolbar
+{
+    background-color:#EEEEEE;
+	border-bottom:1px solid #E0E0E0;
+    width: 1700px;
+    color: black;
+    opacity: 0.72;
+}
+#library_info
+{
+    min-height: 230px;
+    background-color:#E2DBD5;
+    border: 2px solid black;
+}
+#bibloteka_jone_label
+{
+    color:teal;
+}
+#library_info_numbers
+{
+
+}
+#loggin_div
+{
+    background-color: white;
+    min-height: 130px;
+    margin-bottom: 60px;
+    padding-bottom: 50px;
+    margin-top:-180px;
+}
+#login_div_header_toolbar
+{
+    background-color:#EEEEEE;
+	border-bottom:1px solid #E0E0E0;
+    width: 200px;
+    color: black;
+    opacity: 0.72;
+}
+#k_login_div_header_toolbar
+{
+    background-color:#EEEEEE;
+	border-bottom:1px solid #E0E0E0;
+    color: black;
+    opacity: 0.72;
+}
+#login_div_contents
+{
+     border: 2px solid black;
+     min-width: 640px;
+}
+.login_inputs
+{
+
+}
+..grid {
+    max-width: 200px;
+}
+#books_div
+{
+    margin-top:50px;
+}
+#search
+{
+
+}
+#total
+{
+
+}
+.transparent_class
+{
+    opacity: 0.72;
+}
+#searchbox
+{
+
+}
+.green
+{
+    color:darkgreen;
+}
+.red
+{
+    color:red;
+}
+#content
+{
+
+}
+#birthday
+{
+    width: 800px;
+    margin-left: -18px;
+}
+#register_div
+{
+    margin-top:10px;
+}
+#radiobutton_group
+{
+    margin-left:-5px;
+}
+#rezervo_div
+{
+    min-height: 200px;
+}
+#book_details_reserve_div
+{
+    margin-top: 10px;
+}
+.title
+{
+    opacity: 0.73;
+}
+#reserve_div_author
+{
+    margin-top: 10px;
+}
+#reserve_div_return_date
+{
+    padding-top:130px;
+}
+#title_div
+{
+    margin-top: 20px;
+}
+.card_view
+{
+    border: 2px solid #B2DFDB;
+}
+#sandwitch_menu_btn
+{
+}
+#btn_logout
+{
+}
+.circular {
+	width: 70px;
+	height: 70px;
+	border-radius: 35px;
+	border:2px solid white;
+	-webkit-border-radius: 35px;
+	-moz-border-radius: 35px;
+}
+.circular_big {
+	width: 150px;
+	height: 150px;
+	border-radius: 80px;
+	border:2px solid white;
+	-webkit-border-radius: 35px;
+	-moz-border-radius: 35px;
+}
+#account_image
+{
+	margin-top:10px;
+	margin-left:10px;
+}
+#worker_name_sidenav
+{
+	color:white;
+	margin-left:10px;
+}
+.worker_sidenav_icon
+{
+	margin-left:0px;
+}
+.worker_sidenav_subheader
+{
+	padding-left:-100px;
+}
+#worker_sidenav_toolbar
+{
+	background-image: url("../img/backgrounds/waiter_profile_background_1.png");
+	height:120px;
+}
+#cake_btn
+{
+    margin-right:30px;
+}
+#books_read
+{
+    max-height: 400px;
+}
+#books_icon
+{
+    margin-top: 60px;
+}
+#books_read_nr
+{
+    padding-top: -30px;
+    margin-left: -20px;
+}
+#no_books_read_div
+{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+#btn_back
+{
+
+}
+#book_info_left_div
+{
+    margin-left:20px;
+    margin-top: 20px;
+}
+#book_info_right_div
+{
+    margin-top: 60px;
+}
+.margin
+{
+    margin-top:10px;
+}
+#btn_action
+{
+    margin-left: -6px;
+}
+#pick_user_div
+{
+    min-width: 600px;
+    max-height: 600px;
+}
+#book_div_footer
+{
+    min-height:30px;
+    background-color:red;
+}
+#admin_tabs
+{
+    height: 100%;
+}
+#btn_upload_book
+{
+    float: right;
+}
+.user_card
+{
+    height: 200px;
+}
+.my_datepicker
+{
+    width: 300px;
+    margin-left:-20px;
+}
+#picker_explanation_text
+{
+    margin-top: 8px;
+}

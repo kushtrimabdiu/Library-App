@@ -1,0 +1,49 @@
+<div layout="column">
+    <md-sidenav class="md-sidenav-right md-whiteframe-z4" md-component-id="client_sidenav">
+        <md-toolbar id="worker_sidenav_toolbar" class="md-theme-teal" layout="row" layout-align="left center">
+            <span layout="column">
+                <img id="account_image" src="img/profile.png" class="circular" alt="profile_pic" />
+                <span id="worker_name_sidenav" class="md-subhead label">{{lexuesi.username}}</span>
+            </span>
+        </md-toolbar>
+        <div layout="column">
+           <div class="no-animate">
+            <md-list>
+                <md-subheader class="worker_sidenav_subheader">INFORMATA PERSONALE</md-subheader>
+                <md-list-item  ng-click="">
+                    <md-icon class="worker_sidenav_icon" md-svg-icon="img/app_icons/ic_accessibility_24px.svg"></md-icon>
+                    <span>{{lexuesi.name}} {{lexuesi.surname}}</span>
+                </md-list-item>
+                <md-list-item ng-click="">
+                    <md-icon class="worker_sidenav_icon" md-svg-icon="img/app_icons/ic_mail_24px.svg"></md-icon>
+                    <span>{{lexuesi.email}} </span>
+                </md-list-item>
+                <md-list-item ng-click="">
+                    <ng-md-icon id="cake_btn" icon="cake" style="fill:gray" size="24"></ng-md-icon>
+                    <span>{{lexuesi.birthday}}</span>
+                </md-list-item>
+                <md-list-item ng-click="">
+                    <ng-md-icon id="cake_btn" icon="call" style="fill:gray" size="24"></ng-md-icon>
+                    <span>{{lexuesi.tel_no}}</span>
+                </md-list-item>
+                <md-list-item ng-click="">
+                    <ng-md-icon id="cake_btn" icon="credit_card" style="fill:gray" size="24"></ng-md-icon>
+                    <span ng-show="lexuesi.payed_subscription=='1'">KENI PAGUAR</span>
+                    <span ng-show="lexuesi.payed_subscription=='0'">NUK KENI PAGUAR</span>
+                </md-list-item>
+                <md-list-item ng-click="">
+                    <ng-md-icon id="cake_btn" ng-show="lexuesi.gjinija=='m'" icon="tag_faces" style="fill:gray" size="24"></ng-md-icon>
+                    <span ng-show="lexuesi.gjinija=='m'">MASHKULL</span>
+                    <ng-md-icon id="cake_btn" ng-show="lexuesi.gjinija=='f'" icon="face" style="fill:gray" size="24"></ng-md-icon>
+                    <span ng-show="lexuesi.gjinija=='f'">FEMER</span>
+                </md-list-item>
+                <md-divider></md-divider>
+                <md-subheader class="worker_sidenav_subheader">OPCIONE</md-subheader>
+                <md-list-item ng-click="">
+                    <md-button class="md-raised md-primary" flex="100" ng-click="myAccount()">SHIKO GJITHA DETAJET</md-button>
+                </md-list-item>
+            </md-list>
+            </div>
+        </div>
+    </md-sidenav>
+</div>

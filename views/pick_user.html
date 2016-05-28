@@ -1,0 +1,21 @@
+<div id="pick_user_div">
+    <md-whiteframe id="" flex="100" layout-fill>
+        <md-toolbar id="k_login_div_header_toolbar" layout="row" layout-align="space-between center">
+            <span class="md-subhead title">ZGJIDH NJE ANETAR</span>
+            <md-button id="btn_close" title="Close" aria-label="close" class="md-icon-button launch" ng-click="exitDialog()">
+                <ng-md-icon icon="clear" style="fill:gray" size="32"></ng-md-icon>
+            </md-button>
+        </md-toolbar>
+        <md-content flex="100">
+            <div layout="column" >
+                <div id="searchbox">
+                    <md-input-container><label>KERKO ANETAR</label><input type="text" ng-model="search"></md-input-container>
+                </div>
+                <md-card ng-repeat="user in all_users | filter:search" layout="row" layout-align="space-between center">
+                    <span class="title md-subhead">{{user.name}} {{user.surname}}</span>
+                    <md-button class="" ng-click="selectUser(user.id)">ZGJIDH</md-button>
+                </md-card>
+            </div>
+        </md-content>
+    </md-whiteframe>
+</div>

@@ -1,0 +1,35 @@
+<md-whiteframe id="landing_page" class="md-whiteframe-6dp" flex-sm="100" flex-gt-sm="90" flex-gt-md="90"
+               flex-offset="5" layout layout-align="start start" >
+    <md-content>
+    <div id="landing_page_wrapper">
+        <div id="app_header">
+            <md-toolbar id="app_toolbar" layout-align="space-around center" layout="row">
+                <img src="img/rik_logo.png" width="60px" height="60px"/>
+                <span flex></span>
+                <md-button id="btn_back" title="Lohohu" aria-label="Logohu" class="md-icon-button launch" ng-click="logohu()">
+                    <ng-md-icon icon="login" style="fill:gray" size="32"></ng-md-icon>
+                </md-button>
+            </md-toolbar>
+        </div>
+        <div id="courosel">
+           <courosel-view></courosel-view>
+        </div>
+        <div id="library_info">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <center><span id="bibloteka_jone_label" class="md-display-2">BIBLOTEKA JONE</span></center>
+            </div>
+            <div id="library_info_numbers">
+                <div id="nr_of_books" class="col-md-6 col-sm-12 col-lg-6" layout="column">
+                    <div><center><span class="md-display-1">LIBRA</span></center></div>
+                    <div><center><span class="md-display-1">100</span></center></div>
+                </div>
+                <div id="nr_of_books" class="col-md-6 col-sm-12 col-lg-6">
+                    <div><center><span class="md-display-1">ANETARE</span></center></div>
+                    <div><center><span class="md-display-1">50</span></center></div>
+                </div>
+            </div>
+        </div>
+        <div></div>
+    </div>
+    </md-content>
+</md-whiteframe>

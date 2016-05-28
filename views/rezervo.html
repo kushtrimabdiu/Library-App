@@ -1,0 +1,22 @@
+<div id="rezervo_div" layout="row" >
+<md-whiteframe layout="column">
+        <md-toolbar id="k_login_div_header_toolbar" layout="row" layout-align="center center">
+            <span>REZERVO LIBRIN</span>
+        </md-toolbar>
+        <md-content>
+            <div id="book_details_reserve_div" layout="row" ng-repeat="book in all_books">
+                <div ng-show="book.id==selected_book_id" layout="column">
+                    <center><div id="title_div"><span class="md-display-1 title">{{book.name | uppercase}}</span></div></center>
+                    <center><div id="title_div"><span id="reserve_div_author" class="md-body-1">AUTOR:{{book.author | uppercase}}</span></div></center>
+                    <center><div id="title_div"><span id="reserve_div_return_date" class="md-subhead">LIBRI DUHET TE KTHEHET ME DATE:</span></div></center>
+                    <center><div id="title_div"><span id="reserve_div_return_date" class="md-headline">{{return_date}}</span></div></center>
+                    <div id="reserve_buttons" layout="column">
+                    <div layout="row">
+                        <md-button class="md-raised md-primary" flex="50" ng-click="confirmRegistration(book.id)">KONFIRMO</md-button>
+                        <md-button class="md-raised md-accent" flex="50" ng-click="cancelReservation()">ANULO</md-button>
+                    </div>
+                </div>
+            </div>
+        </md-content>
+</md-whiteframe>
+</div>
